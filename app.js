@@ -29,28 +29,37 @@ const UIController = (function (){
   };
 })();
 
-
+//GLOBAL APP CONTROLLER
 const controller = (function (budgetCtrl, UICtrl){
-  const DOM = UICtrl.getDOMstrings();
+  const setupEventListeners = function(){
+    const DOM = UICtrl.getDOMstrings();
+    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+    document.addEventListener('keypress', function(e){
+      //if the enter key is pressed
+      if (e.keyCode === 13 || e.which === 13) {
+        ctrlAddItem();
+      }
+    });
+  };
+
 
   const ctrlAddItem = function(){
     //values of field input
     const input = UICtrl.getinput();
     console.log(input);
+  };
 
-
-  }
-  document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-  document.addEventListener('keypress', function(e){
-    //if the enter key is pressed
-    if (e.keyCode === 13 || e.which === 13) {
-      ctrlAddItem();
+  return {
+    init: function(){
+      console.log('Application has started.');
+      setupEventListeners();
     }
-  });
+  }
+
 
 })(budgetController, UIController);
 
-
+controller.init();
 
 
 
